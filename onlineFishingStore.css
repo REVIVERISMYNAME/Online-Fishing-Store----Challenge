@@ -65,11 +65,26 @@ margin-bottom: 0;
     color: white;
 }
 
-.myItems {
-display: grid;
-grid-template-columns: repeat(5, 1fr);
-background-color: rgb(228, 205, 134); 
-border-radius: 15px;
-word-wrap: break-word;
-border: solid black;
-}
+.cart-row {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    grid-template-columns: repeat(5, 1fr);
+    background-color: rgb(228, 205, 134); 
+    border-radius: 15px;
+    word-wrap: break-word;
+    border: solid black;
+  }
+
+  .panel-heading {
+    height:65px;
+  }
+
+  .panel-body {
+    height:150px;
+  }
+
+  .cart-quantity cart-column {
+    border: 100px;
+    background-color: aqua;
+  }
