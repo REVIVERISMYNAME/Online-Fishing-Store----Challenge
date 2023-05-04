@@ -54,6 +54,17 @@ border-radius: 0;
 /* Remove the jumbotron's default bottom margin */ 
 .jumbotron {
 margin-bottom: 0;
+padding: 0;
+
+}
+
+#myBackGround {
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+    width: 100%;
+    padding: 0px;
+
 }
 
 .myHeader {
@@ -81,7 +92,7 @@ margin-bottom: 0;
   }
 
   .panel-body {
-    height:150px;
+    height:200px;
   }
 
   .cart-quantity cart-column {
