@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+    
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,41 +13,48 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 
-        <title>Your Fishing Cart</title>
+        <title>Tackling Flies : Fishing Cart</title>
 
         <!-- link to styles -->
         <link rel="stylesheet" href="./onlineFishingStore.css">
         
         
     </head>
-</head>
-<body>
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>                        
-            </button>
+    
+    <body>
         
-          </div>
-          <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-              <li><a href="./onlineFishingStore.html">Home</a></li>
-              <li><a href="#">Products</a></li>
-              <li><a href="#">Contact</a></li>
+
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>                        
+                </button>
             
-              <li><a href="#"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
-              <li class="active"><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+              </div>
+              <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                  <li><a href="./onlineFishingStore.html">Home</a></li>
+                  <li><a href="./ProductsPage.html">Products</a></li>
+                  <li><a href="#">Contact</a></li>
+                
+                  <li><a href="#"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+                  <li class="active"><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
 
 
 
-      <section>
+         
+        
+  
+      
+
+      <section class="displayCart">
 
         <h2><span class="glyphicon glyphicon-shopping-cart"></span>  Cart</h2>
         <hr>
@@ -57,6 +64,26 @@
         </div>
   
         <div class="cart-items">
+
+          <ul class="taskList" data-lists>
+            <li class="cart-row">
+              <div class="cart-item cart-column">
+                <img src="src/Pictures/All Flies copy_1.jpg" class="cart-item-image" style="width:160px" alt="Image">
+                 <span class="cart-item-title">Example{title}</span>
+                  </div>
+  
+     
+                 <span class="cart-price cart-colomn">R 10.00</span>
+  
+  
+               <div class="cart-quantity cart-column">
+                <input class="cart-quantity-input" type="number" value="1">
+                <button class="btn btn-danger" type="buton">REMOVE</button>
+              </div>
+            </li>
+
+          </ul>
+          
           
         </div>
       
@@ -76,7 +103,7 @@
         <hr>
 
        </section>
-       <!-- Link to Script -->
+        <!-- Link to Script -->
     <script src="./onlineFishingStore.js" defer></script>
-</body>
-</html>
+    </body>
+    </html>

@@ -5,11 +5,47 @@ console.log("-- My Fishing Store Page Loaded --");
 
     // code here...
     if (document.readyState == 'loading') {
-        document.addEventListener('DOMContentLoaded' , ready)
+        document.addEventListener('DOMContentLoaded' , ready())
       } else { ready()
       
       } 
       function ready() {
+
+
+        const listContainer = document.querySelector('[data-lists]');
+
+        const LOCAL_STORAGE_LIST_KEY = 'task.list'
+        let lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY))  || [];
+        console.log("List de-stringified")
+
+    function saveAndRender() {
+      save();
+      render();
+    };
+
+    function render() {
+      clearElement(listContainer)
+      lists.forEach(list => {
+        const listElement = document.createElement('li');
+              listElement.classList.add('cart-row');
+              listElement.innerHTML = list.name;
+              listContainer.appendChild(listElement); 
+              console.log("And Item Rendered")
+      })
+    }
+
+    function save() {
+      localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(lists));
+      console.log(" Item Saved ")
+    };
+
+    function clearElement(element) {
+      while (element.firstChild) {
+        element.removeChild(element.firstChild);
+      }
+    }
+
+    render();
 
         updateCartTotal()
         
@@ -18,15 +54,25 @@ console.log("-- My Fishing Store Page Loaded --");
 
     // Function for "Remove" buttons
     var removeCartItemButtons = document.getElementsByClassName('btn-danger');
-    console.log(removeCartItemButtons);
     for (var i = 0; i < removeCartItemButtons.length; i++) {
       var button = removeCartItemButtons[i]
-      button.addEventListener('click', function(Event) {
+      button.addEventListener('click', function(event) {
         var buttonClicked = event.target
-        buttonClicked.parentElement.parentElement.remove()
+        console.log(event.target);
+        console.log(event.target.parentElement);
+        console.log(event.target.parentElement.parentElement);
 
+        buttonClicked.parentElement.parentElement.remove()
+        lists.pop(event.target.parentElement.parentElement);
+        console.log(lists);
+        saveAndRender();
         console.log("-- Item Removed --");
+
+
         updateCartTotal()
+        location.reload();
+
+
       })
       
     }
@@ -65,6 +111,11 @@ console.log("-- My Fishing Store Page Loaded --");
       console.log(" -- Total Amount Updated --")
     }
 
+                                                                    
+
+
+
+
     // Funtion for "ADD" buttons
     var addToCartButtons = document.getElementsByClassName('shop-item-button')
     for (var i = 0; i < addToCartButtons.length; i++) {
@@ -72,16 +123,12 @@ console.log("-- My Fishing Store Page Loaded --");
         button.addEventListener('click', addToCartClicked);
         
     }    
-    
-
-    console.log('Page still works');
-
         function addToCartClicked(event) {
              var button = event.target
              var shopItem = button.parentElement.parentElement
+             var imageSrc = shopItem.getElementsByClassName('shop-item-image')[0].src
              var title = shopItem.getElementsByClassName('shop-item-title')[0].innerText
              var price = shopItem.getElementsByClassName('shop-item-price')[0].innerText
-             var imageSrc = shopItem.getElementsByClassName('shop-item-image')[0].src
              console.log(title);
              console.log(price);
              console.log(imageSrc);
@@ -89,52 +136,109 @@ console.log("-- My Fishing Store Page Loaded --");
             };
 
             function addItemToCart(title, price, imageSrc) {
-              var cartRow = document.createElement('div');
+              var cartRow = document.createElement('li');
               cartRow.classList.add('cart-row');
+
               var cartItems = document.getElementsByClassName('cart-items')[0];
+
               // Loop to prevent the same Item to be added more than once to the Cart
                   var cartItemNames = cartItems.getElementsByClassName("cart-item-title");
                   for (var i = 0; i < cartItemNames.length; i++) {
                     if (cartItemNames[i].innerText == title) {
-                      alert(" Item" + title + " is Already in your cart ");
+                      alert( title + " is Already in your cart ");
                       return
                     }
-                   
                   }
-              var cartRowContents =
-               `
-                  <div class="cart-item cart-column">
-                  <img src="${imageSrc}" class="cart-item-image" style="width:160px" alt="Image">
-                  <span class="cart-item-title">${title}</span>
-                 </div>
+                    const list = createList(title);
+                    lists.push(list);
+                    saveAndRender();
 
-                 <span class="cart-price cart-colomn">${price}</span>
 
-                 <div class="cart-quantity cart-column">
-                  <input class="cart-quantity-input" type="number" value="1">
-                  <button class="btn btn-danger" type="buton">REMOVE</button>
-                </div>
-              `
+                   function createList(name) {
 
-              cartRow.innerHTML = cartRowContents;
-              cartItems.append(cartRow);
+                    var cartRowContents =
+                    `
+                       <div class="cart-item cart-column">
+                       <img src="${imageSrc}" class="cart-item-image" style="width:160px" alt="Image">
+                       <span class="cart-item-title">${title}</span>
+                      </div>
+     
+                      <span class="cart-price cart-colomn">${price}</span>
+     
+                      <div class="cart-quantity cart-column">
+                       <input class="cart-quantity-input" type="number" value="1">
+                       <button class="btn btn-danger" type="buton">REMOVE</button>
+                     </div>
+                   `
+                   
+                      return { name: cartRowContents,
+                               //tasks: [] 
+                              };
+                      };
+                      //console.log(cartRowContents);
+
+                      function saveAndRender() {
+                        
+                        render();
+                        save();
+                      };
+
+                      function save() {
+                        localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(lists));
+                        console.log(" Item Saved ")
+                      };
+
+
+                  function render() {
+                    clearElement(listContainer)
+                    lists.forEach(list => {
+                      const listElement = document.createElement('li');
+                            listElement.classList.add('cart-row');
+                            listElement.innerHTML = list.name;
+                            listContainer.appendChild(listElement); 
+                            console.log("And Item Rendered")
+                    })
+                  }
+
+                  function clearElement(element) {
+                    while (element.firstChild) {
+                      element.removeChild(element.firstChild);
+                    }
+                  }
+
+                  saveAndRender();
+
+
+                  console.log(lists);
+
+                          
+
+              //cartRow.innerHTML = lists;
+              //cartItems.append(cartRow);
+
+
+
+
 
     // Function for "Remove" buttons after appended to Cart
     var removeCartItemButtons = document.getElementsByClassName('btn-danger');
-    console.log(removeCartItemButtons);
     for (var i = 0; i < removeCartItemButtons.length; i++) {
       var button = removeCartItemButtons[i]
-      button.addEventListener('click', function(Event) {
+      button.addEventListener('click', function(event) {
         var buttonClicked = event.target
         buttonClicked.parentElement.parentElement.remove()
 
+        buttonClicked.parentElement.parentElement.remove()
+        lists.pop(event.target.parentElement.parentElement);
+        console.log(lists);
+        saveAndRender();
         console.log("-- Item Removed --");
         updateCartTotal()
+
       })
-      
     }
 
-     // Function for changing the Quantity input
+     // Function for changing the Quantity input After Item Is Appended to Cart List
      var quantityInputs = document.getElementsByClassName('cart-quantity-input');
      for (var i = 0; i < quantityInputs.length; i++) {
        var input = quantityInputs[i]
@@ -168,12 +272,20 @@ console.log("-- My Fishing Store Page Loaded --");
        console.log(" -- Total Amount Updated --")
      }
               
-              updateCartTotal();
+          updateCartTotal();
+          
 
-           }
+    }
+    console.log(lists);
+
 
  };
-      
+
+ console.log('Page still works');
+
+
+
+
 
     
 
