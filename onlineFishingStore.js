@@ -49,7 +49,8 @@ console.log("-- My Fishing Store Page Loaded --");
 
         updateCartTotal()
         
-    
+
+        
 
 
     // Function for "Remove" buttons
@@ -234,6 +235,7 @@ console.log("-- My Fishing Store Page Loaded --");
         saveAndRender();
         console.log("-- Item Removed --");
         updateCartTotal()
+        location.reload();
 
       })
     }
@@ -276,10 +278,19 @@ console.log("-- My Fishing Store Page Loaded --");
           
 
     }
-    console.log(lists);
-
-
+    
  };
+ //const purchaseAndClear = document.getElementsByClassName("purchaseAndClear");
+ purchaseAndClear.addEventListener('click', clearCart());
+ 
+ function clearCart() {
+  console.log("Purchase Button Clicked");
+ };
+ 
+
+ 
+    
+
 
  console.log('Page still works');
 
